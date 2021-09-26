@@ -3,11 +3,12 @@ from random import randrange
 
 
 class Human(Animal):
-    def __init__(self, world: object):
+    def __init__(self, world: object, creation_time):
         self.strength = 5
         self.initiative = 4
         self.position = (randrange(world.n_axis) + 1, randrange(world.m_axis) + 1)
         self.world_reference = world
+        self.creation_time = creation_time
 
     def action(self):
         # Człowiek może przemieścić się jedynie na sąsiednie pole

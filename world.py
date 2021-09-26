@@ -26,5 +26,5 @@ class World:
     def create_world(self):
         self.n_axis = int(input('Podaj szerokość świata: '))
         self.m_axis = int(input('Podaj długość świata: '))
-        World.organisms_dict['animals']['human'] = Human(self)
+        World.organisms_dict['animals']['human'] = Human(self, self.turn_since_start)
         print(World.organisms_dict['animals']['human'].position)
