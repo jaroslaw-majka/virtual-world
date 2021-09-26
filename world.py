@@ -3,8 +3,10 @@ class World:
     def __init__(self):
         self.n_axis = None
         self.m_axis = None
+        self.turn_since_start = 0
 
     def make_a_turn(self):
+        self.turn_since_start += 1
         # Sprawi, że organizmy wykonają swój ruch zgodnie z założeniami.
         pass
 
