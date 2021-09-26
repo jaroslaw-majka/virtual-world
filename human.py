@@ -1,5 +1,3 @@
-from typing import Tuple
-
 from animal import Animal
 from random import randrange
 
@@ -15,7 +13,8 @@ class Human(Animal):
         # Człowiek może przemieścić się jedynie na sąsiednie pole
         # ale kierunek jego ruchu definiowany jest przez uzytkownika poprzez wciśnięcie odpowiedniego klawisza
         action = self.movement_menu()
-        self.walk_in_desired_direction(action, self.world_reference)
+        if action in 'news':
+            self.walk_in_desired_direction(action, self.world_reference)
 
     def collision(self):
         # Człowiek będzie posiadał specjalną umiejętność, którą można aktywować

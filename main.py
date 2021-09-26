@@ -6,9 +6,7 @@ if __name__ == '__main__':
     world1 = World()
     world1.create_world()
     print(f'World 1 dims: {world1.m_axis} x {world1.n_axis}')
-    organism0 = Human(world1)
-    print(f'Humans position is: {organism0.position}')
-    organism0.action()
+
 
 # Myślę, żeby zapisywać dane w dict, będę mógł zagnieździć w nim organizmy danego typu
 # wraz z informacjami dotyczacymi każdego z nich (wiek, położenie)
