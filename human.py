@@ -30,9 +30,12 @@ class Human(Animal):
         """
         print("1. Wykonaj ruch na sąsiednie pole")
         print("2. Użyj umiejętności")
-        menu_choice = input("Wybierz akcje:")
+        print("3. Zakończ grę")
+        menu_choice = input("Wybierz akcje: ")
         if menu_choice == '1':
             return input('W krótym kierunku chcesz się poruszyć (n, e, w, s): ')
         elif menu_choice == '2':
             # TODO implement special skill method
             pass
+        elif menu_choice == '3':
+            quit()
