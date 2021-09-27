@@ -1,4 +1,5 @@
 from typing import Tuple
+from random import choice
 
 
 class Organism:
@@ -10,6 +11,8 @@ class Organism:
 
     def action(self):
         # Okresla zachowanie organizmu w trakcie tury
+        action = choice('news')
+        self.move_in_desired_direction(action, self.world_reference)
         pass
 
     def collision(self):
