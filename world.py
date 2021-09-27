@@ -22,7 +22,7 @@ class World:
 
     def make_a_turn(self):
         # Sprawi, że organizmy wykonają swój ruch zgodnie z założeniami.
-        self.movement_order()
+        print(self.movement_order())
         while True:
             Human.action(World.organisms_dict['animals']['human'])
             self.turn_since_start += 1
@@ -77,7 +77,7 @@ class World:
         Calculates number of animals of same species to be created at the world creation
         """
         number_of_animals = self.n_axis * self.m_axis // 100
-        if number_of_animals == 0:
+        if number_of_animals < 2:
             return 2
         else:
             return number_of_animals
@@ -97,10 +97,14 @@ class World:
 
     # TODO add 2nd argument when initiative is equal (age)
     def movement_order(self):
+        # TODO remove below test 2 lines
+        World.organisms_dict['animals']['sheep'][1].creation_time = 4
+        print(World.organisms_dict['animals']['sheep'][1])
+
         merged_list = World.organisms_dict['animals']['wolf'] \
                        + World.organisms_dict['animals']['sheep'] \
                        + World.organisms_dict['animals']['fox'] \
                        + World.organisms_dict['animals']['tortoise'] \
                        + World.organisms_dict['animals']['antelope']
         merged_list.append(World.organisms_dict['animals']['human'])
-        return sorted(merged_list, key=lambda animal: animal.initiative)
+        return sorted(merged_list, key=lambda animal: animal.initiative, reverse=True)
