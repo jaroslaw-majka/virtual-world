@@ -32,10 +32,12 @@ class World:
         self.n_axis = int(input('Podaj szerokość świata: '))
         self.m_axis = int(input('Podaj długość świata: '))
         self.create_human()
-        self.create_wolf()
+        for idx in range(self.number_of_starting_animals()):
+            self.create_wolf()
         # TODO Remove below prints
         print(f"Human: {World.organisms_dict['animals']['human'].position}")
-        print(f"Wolf: {World.organisms_dict['animals']['wolf'][0].position}")
+        for idx in range(len(World.organisms_dict['animals']['wolf'])):
+            print(f"Wolf: {World.organisms_dict['animals']['wolf'][idx].position}")
         print(World.organisms_dict)
 
     def start_menu(self) -> None:
@@ -71,7 +73,11 @@ class World:
         """
         Calculates number of animals of same species to be created at the world creation
         """
-        return self.n_axis * self.m_axis // 100
+        number_of_animals = self.n_axis * self.m_axis // 100
+        if number_of_animals == 0:
+            return 2
+        else:
+            return number_of_animals
 
     def create_wolf(self) -> object:
         """
