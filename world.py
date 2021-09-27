@@ -1,4 +1,5 @@
 from human import Human
+from wolf import Wolf
 
 
 class World:
@@ -28,8 +29,10 @@ class World:
         self.n_axis = int(input('Podaj szerokość świata: '))
         self.m_axis = int(input('Podaj długość świata: '))
         self.create_human()
+        self.create_wolf()
         # TODO Remove below prints
         print(World.organisms_dict['animals']['human'].position)
+        print(World.organisms_dict['animals']['wolf'][0].position)
         print(World.organisms_dict)
 
     def start_menu(self):
@@ -50,4 +53,13 @@ class World:
             quit()
 
     def create_human(self):
+        """
+        Creates object of Human class
+        """
         World.organisms_dict['animals']['human'] = Human(self, self.turn_since_start)
+
+    def create_wolf(self):
+        """
+        Creates object of Wolf class
+        """
+        World.organisms_dict['animals']['wolf'].append(Wolf(self, self.turn_since_start))

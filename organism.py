@@ -1,19 +1,20 @@
 from typing import Tuple
-from random import choice
+from random import choice, randrange
 
 
 class Organism:
     def __init__(self, world: object):
         self.strength = None
         self.initiative = None
-        self.position = None
+        self.position = self.starting_position(self.world_reference)
         self.world_reference = world
 
     def action(self):
-        # Okresla zachowanie organizmu w trakcie tury
+        """
+        Default Organism movement during the turn
+        """
         action = choice('news')
         self.move_in_desired_direction(action, self.world_reference)
-        pass
 
     def collision(self):
         # określa zachowanie organizmu w trakcie kontaktu / zderzenia z innym organizmem
@@ -48,3 +49,6 @@ class Organism:
             new_position = (self.position[0], self.position[1] - 1)
         self.movement_sanity_check(new_position, world_reference)
         print(self.position)
+
+    def starting_position(self, world_reference):
+        return randrange(world_reference.n_axis) + 1, randrange(world_reference.m_axis) + 1
