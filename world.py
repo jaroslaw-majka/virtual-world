@@ -1,5 +1,6 @@
 from human import Human
 from wolf import Wolf
+from sheep import Sheep
 
 
 class World:
@@ -35,6 +36,7 @@ class World:
         self.create_human()
         for idx in range(self.number_of_starting_animals()):
             self.create_wolf()
+            self.create_sheep()
         # TODO Remove below prints
         print(f"Human: {World.organisms_dict['animals']['human'].position}")
         for idx in range(len(World.organisms_dict['animals']['wolf'])):
@@ -86,11 +88,19 @@ class World:
         """
         World.organisms_dict['animals']['wolf'].append(Wolf(self, self.turn_since_start))
 
+    def create_sheep(self) -> object:
+        """
+        Creates object of Sheep class
+        :return:
+        """
+        World.organisms_dict['animals']['sheep'].append(Sheep(self, self.turn_since_start))
+
+    # TODO add 2nd argument when initiative is equal (age)
     def movement_order(self):
         merged_list = World.organisms_dict['animals']['wolf'] \
                        + World.organisms_dict['animals']['sheep'] \
                        + World.organisms_dict['animals']['fox'] \
                        + World.organisms_dict['animals']['tortoise'] \
                        + World.organisms_dict['animals']['antelope']
-        ordered_list = sorted(merged_list, key=lambda animal: animal.initiative)
-        print(ordered_list)
+        merged_list.append(World.organisms_dict['animals']['human'])
+        return sorted(merged_list, key=lambda animal: animal.initiative)
