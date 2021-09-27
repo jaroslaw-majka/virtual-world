@@ -9,4 +9,4 @@ class Fox(Animal):
         self.world_reference = world
         self.position = self.starting_position(self.world_reference)
 
-        # TODO override action method
+    # TODO override action method

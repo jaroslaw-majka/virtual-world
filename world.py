@@ -1,6 +1,9 @@
 from human import Human
 from wolf import Wolf
 from sheep import Sheep
+from fox import Fox
+from tortoise import Tortoise
+from antelope import Antelope
 
 
 class World:
@@ -36,10 +39,11 @@ class World:
         for idx in range(self.number_of_starting_animals()):
             self.create_wolf()
             self.create_sheep()
+            self.create_fox()
+            self.create_tortoise()
+            self.create_antelope()
         # TODO Remove below prints
         print(f"Human: {World.organisms_dict['animals']['human'].position}")
-        for idx in range(len(World.organisms_dict['animals']['wolf'])):
-            print(f"Wolf: {World.organisms_dict['animals']['wolf'][idx].position}")
         print(World.organisms_dict)
 
     def start_menu(self) -> None:
@@ -90,16 +94,23 @@ class World:
     def create_sheep(self) -> object:
         """
         Creates object of Sheep class
-        :return:
         """
         World.organisms_dict['animals']['sheep'].append(Sheep(self, self.turn_since_start))
 
-    # # TODO add 2nd argument when initiative is equal (age)
-    # def movement_order(self):
-    #     merged_list = World.organisms_dict['animals']['wolf'] \
-    #                    + World.organisms_dict['animals']['sheep'] \
-    #                    + World.organisms_dict['animals']['fox'] \
-    #                    + World.organisms_dict['animals']['tortoise'] \
-    #                    + World.organisms_dict['animals']['antelope']
-    #     merged_list.append(World.organisms_dict['animals']['human'])
-    #     return sorted(merged_list, key=lambda animal: animal.initiative, reverse=True)
+    def create_fox(self) -> object:
+        """
+        Creates object of class Fox
+        """
+        World.organisms_dict['animals']['fox'].append(Fox(self, self.turn_since_start))
+
+    def create_tortoise(self) -> object:
+        """
+        Creates object of class Tortoise
+        """
+        World.organisms_dict['animals']['tortoise'].append(Tortoise(self, self.turn_since_start))
+
+    def create_antelope(self):
+        """
+        Creates object of class Antelope
+        """
+        World.organisms_dict['animals']['antelope'].append(Antelope(self, self.turn_since_start))
