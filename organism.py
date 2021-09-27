@@ -2,10 +2,11 @@ from typing import Tuple
 
 
 class Organism:
-    def __init__(self):
+    def __init__(self, world: object):
         self.strength = None
         self.initiative = None
         self.position = None
+        self.world_reference = world
 
     def action(self):
         # Okresla zachowanie organizmu w trakcie tury
