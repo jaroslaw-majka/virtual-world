@@ -21,6 +21,7 @@ class World:
 
     def make_a_turn(self):
         # Sprawi, że organizmy wykonają swój ruch zgodnie z założeniami.
+        self.movement_order()
         while True:
             Human.action(World.organisms_dict['animals']['human'])
             self.turn_since_start += 1
@@ -84,3 +85,12 @@ class World:
         Creates object of Wolf class
         """
         World.organisms_dict['animals']['wolf'].append(Wolf(self, self.turn_since_start))
+
+    def movement_order(self):
+        merged_list = World.organisms_dict['animals']['wolf'] \
+                       + World.organisms_dict['animals']['sheep'] \
+                       + World.organisms_dict['animals']['fox'] \
+                       + World.organisms_dict['animals']['tortoise'] \
+                       + World.organisms_dict['animals']['antelope']
+        ordered_list = sorted(merged_list, key=lambda animal: animal.initiative)
+        print(ordered_list)
