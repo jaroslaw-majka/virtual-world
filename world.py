@@ -22,7 +22,6 @@ class World:
 
     def make_a_turn(self):
         # Sprawi, że organizmy wykonają swój ruch zgodnie z założeniami.
-        print(self.movement_order())
         while True:
             Human.action(World.organisms_dict['animals']['human'])
             self.turn_since_start += 1
@@ -95,16 +94,12 @@ class World:
         """
         World.organisms_dict['animals']['sheep'].append(Sheep(self, self.turn_since_start))
 
-    # TODO add 2nd argument when initiative is equal (age)
-    def movement_order(self):
-        # TODO remove below test 2 lines
-        World.organisms_dict['animals']['sheep'][1].creation_time = 4
-        print(World.organisms_dict['animals']['sheep'][1])
-
-        merged_list = World.organisms_dict['animals']['wolf'] \
-                       + World.organisms_dict['animals']['sheep'] \
-                       + World.organisms_dict['animals']['fox'] \
-                       + World.organisms_dict['animals']['tortoise'] \
-                       + World.organisms_dict['animals']['antelope']
-        merged_list.append(World.organisms_dict['animals']['human'])
-        return sorted(merged_list, key=lambda animal: animal.initiative, reverse=True)
+    # # TODO add 2nd argument when initiative is equal (age)
+    # def movement_order(self):
+    #     merged_list = World.organisms_dict['animals']['wolf'] \
+    #                    + World.organisms_dict['animals']['sheep'] \
+    #                    + World.organisms_dict['animals']['fox'] \
+    #                    + World.organisms_dict['animals']['tortoise'] \
+    #                    + World.organisms_dict['animals']['antelope']
+    #     merged_list.append(World.organisms_dict['animals']['human'])
+    #     return sorted(merged_list, key=lambda animal: animal.initiative, reverse=True)
