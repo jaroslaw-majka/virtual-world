@@ -25,22 +25,31 @@ class World:
             Human.action(World.organisms_dict['animals']['human'])
             self.turn_since_start += 1
 
-    def create_world(self):
+    def create_world(self) -> object:
+        """
+        Creates a new world filled with organisms
+        """
         self.n_axis = int(input('Podaj szerokość świata: '))
         self.m_axis = int(input('Podaj długość świata: '))
         self.create_human()
         self.create_wolf()
         # TODO Remove below prints
-        print(World.organisms_dict['animals']['human'].position)
-        print(World.organisms_dict['animals']['wolf'][0].position)
+        print(f"Human: {World.organisms_dict['animals']['human'].position}")
+        print(f"Wolf: {World.organisms_dict['animals']['wolf'][0].position}")
         print(World.organisms_dict)
 
-    def start_menu(self):
+    def start_menu(self) -> None:
+        """
+        Start menu printed for player
+        """
         print('1. Nowa gra (swtórz nowy świat)')
         print('2. Wczytaj grę')
         print('0. Wyjdź')
 
-    def main(self):
+    def main(self) -> None:
+        """
+        Start Menu interface with input for player
+        """
         self.start_menu()
         user_input = input('Wybierz jedną z opcji: ')
         if user_input == '1':
@@ -52,13 +61,19 @@ class World:
         elif user_input == '3':
             quit()
 
-    def create_human(self):
+    def create_human(self) -> object:
         """
         Creates object of Human class
         """
         World.organisms_dict['animals']['human'] = Human(self, self.turn_since_start)
 
-    def create_wolf(self):
+    def number_of_starting_animals(self) -> int:
+        """
+        Calculates number of animals of same species to be created at the world creation
+        """
+        return self.n_axis * self.m_axis // 100
+
+    def create_wolf(self) -> object:
         """
         Creates object of Wolf class
         """

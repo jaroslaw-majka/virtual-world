@@ -8,4 +8,3 @@ class Wolf(Animal):
         self.creation_time = creation_time
         self.world_reference = world
         self.position = self.starting_position(self.world_reference)
-
