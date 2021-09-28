@@ -82,7 +82,12 @@ class World:
         """
         Creates object of Wolf class
         """
-        World.organisms_list.append(Wolf(self, self.turn_since_start))
+        # World.organisms_list.append(Wolf(self, self.turn_since_start))
+        wolf = Wolf(self, self.turn_since_start)
+        World.organisms_list.append(wolf)
+        for idx in range(len(World.organisms_list)):
+            if wolf.position == World.organisms_list[idx].position:
+                print('Field taken')
 
     def create_sheep(self) -> object:
         """
