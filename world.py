@@ -82,12 +82,21 @@ class World:
         """
         Creates object of Wolf class
         """
-        # World.organisms_list.append(Wolf(self, self.turn_since_start))
         wolf = Wolf(self, self.turn_since_start)
-        World.organisms_list.append(wolf)
-        for idx in range(len(World.organisms_list)):
-            if wolf.position == World.organisms_list[idx].position:
-                print('Field taken')
+        occupying_organism = self.free_field_check(wolf)
+        if not occupying_organism:
+            World.organisms_list.append(wolf)
+        else:
+            # TODO create a function to manage below code
+            print(occupying_organism)
+            print(f'Field taken by: {type(occupying_organism)}')
+            print(f'It\'s strength is {occupying_organism.strength}')
+            if wolf.strength > occupying_organism.strength:
+                print('Wolf won')
+                World.organisms_list.append(wolf)
+            else:
+                print('Wolf lost')
+                World.organisms_list.append(occupying_organism)
 
     def create_sheep(self) -> object:
         """
@@ -112,3 +121,11 @@ class World:
         Creates object of class Antelope
         """
         World.organisms_list.append(Antelope(self, self.turn_since_start))
+
+    def free_field_check(self, organism):
+        """
+        Checks if the field is empty, if not returns an object that is occupying it.
+        """
+        for idx in range(len(World.organisms_list)):
+            if organism.position == World.organisms_list[idx].position:
+                return World.organisms_list.pop(idx)
