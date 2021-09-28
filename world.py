@@ -7,15 +7,8 @@ from antelope import Antelope
 
 
 class World:
-    organisms_dict = {'plants': {'grass': [],
-                                 'dandelion': [],
-                                 'guarana': [],
-                                 'wolf berries': []},
-                      'animals': {'wolf': [],
-                                  'sheep': [],
-                                  'fox': [],
-                                  'tortoise': [],
-                                  'antelope': []}}
+    human = object
+    organisms_list = []
     
     def __init__(self):
         self.n_axis = None
@@ -26,7 +19,7 @@ class World:
     def make_a_turn(self):
         # Sprawi, że organizmy wykonają swój ruch zgodnie z założeniami.
         while True:
-            Human.action(World.organisms_dict['animals']['human'])
+            Human.action(World.human)
             self.turn_since_start += 1
 
     def create_world(self) -> object:
@@ -37,14 +30,14 @@ class World:
         self.m_axis = int(input('Podaj długość świata: '))
         self.create_human()
         for idx in range(self.number_of_starting_animals()):
-            self.create_wolf()
             self.create_sheep()
             self.create_fox()
             self.create_tortoise()
             self.create_antelope()
+            self.create_wolf()
         # TODO Remove below prints
-        print(f"Human: {World.organisms_dict['animals']['human'].position}")
-        print(World.organisms_dict)
+        print(f'Pozycja człowieka: {World.human.position}')
+        print(World.organisms_list)
 
     def start_menu(self) -> None:
         """
@@ -73,7 +66,7 @@ class World:
         """
         Creates object of Human class
         """
-        World.organisms_dict['animals']['human'] = Human(self, self.turn_since_start)
+        World.human = Human(self, self.turn_since_start)
 
     def number_of_starting_animals(self) -> int:
         """
@@ -89,28 +82,28 @@ class World:
         """
         Creates object of Wolf class
         """
-        World.organisms_dict['animals']['wolf'].append(Wolf(self, self.turn_since_start))
+        World.organisms_list.append(Wolf(self, self.turn_since_start))
 
     def create_sheep(self) -> object:
         """
         Creates object of Sheep class
         """
-        World.organisms_dict['animals']['sheep'].append(Sheep(self, self.turn_since_start))
+        World.organisms_list.append(Sheep(self, self.turn_since_start))
 
     def create_fox(self) -> object:
         """
         Creates object of class Fox
         """
-        World.organisms_dict['animals']['fox'].append(Fox(self, self.turn_since_start))
+        World.organisms_list.append(Fox(self, self.turn_since_start))
 
     def create_tortoise(self) -> object:
         """
         Creates object of class Tortoise
         """
-        World.organisms_dict['animals']['tortoise'].append(Tortoise(self, self.turn_since_start))
+        World.organisms_list.append(Tortoise(self, self.turn_since_start))
 
     def create_antelope(self):
         """
         Creates object of class Antelope
         """
-        World.organisms_dict['animals']['antelope'].append(Antelope(self, self.turn_since_start))
+        World.organisms_list.append(Antelope(self, self.turn_since_start))
