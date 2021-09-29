@@ -87,16 +87,7 @@ class World:
         if not occupying_organism:
             World.organisms_list.append(wolf)
         else:
-            # TODO create a function to manage below code
-            print(occupying_organism)
-            print(f'Field taken by: {type(occupying_organism)}')
-            print(f'It\'s strength is {occupying_organism.strength}')
-            if wolf.strength > occupying_organism.strength:
-                print('Wolf won')
-                World.organisms_list.append(wolf)
-            else:
-                print('Wolf lost')
-                World.organisms_list.append(occupying_organism)
+            self.encounter(wolf, occupying_organism)
 
     def create_sheep(self) -> object:
         """
@@ -116,16 +107,28 @@ class World:
         """
         World.organisms_list.append(Tortoise(self, self.turn_since_start))
 
-    def create_antelope(self):
+    def create_antelope(self) -> object:
         """
         Creates object of class Antelope
         """
         World.organisms_list.append(Antelope(self, self.turn_since_start))
 
-    def free_field_check(self, organism):
+    def free_field_check(self, organism) -> object:
         """
         Checks if the field is empty, if not returns an object that is occupying it.
         """
         for idx in range(len(World.organisms_list)):
             if organism.position == World.organisms_list[idx].position:
                 return World.organisms_list.pop(idx)
+
+    def encounter(self, moving_organism, occupying_organism):
+        # TODO Temporay method.
+        print(occupying_organism)
+        print(f'Field taken by: {type(occupying_organism)}')
+        print(f'It\'s strength is {occupying_organism.strength}')
+        if moving_organism.strength > occupying_organism.strength:
+            print('Wolf won')
+            World.organisms_list.append(moving_organism)
+        else:
+            print('Wolf lost')
+            World.organisms_list.append(occupying_organism)
