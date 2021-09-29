@@ -81,6 +81,8 @@ class World:
         for idx in range(len(World.organisms_list)):
             if organism.position == World.organisms_list[idx].position:
                 return World.organisms_list.pop(idx)
+        if organism.position == World.human.position:
+            return World.human
 
     def encounter(self, moving_organism, occupying_organism):
         # TODO Temporary method.
@@ -96,7 +98,5 @@ class World:
             occupying_organism = self.free_field_check(organism_list[idx])
             if not occupying_organism:
                 World.organisms_list.append(organism_list[idx])
-                print(organism_list[idx])
             else:
-                print(f'Occupying: {occupying_organism}\nAttacker: {organism_list[idx]}')
                 self.encounter(organism_list[idx], occupying_organism)
