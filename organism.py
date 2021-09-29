@@ -16,9 +16,16 @@ class Organism:
         action = choice('news')
         self.move_in_desired_direction(action, self.world_reference)
 
-    def collision(self):
-        # określa zachowanie organizmu w trakcie kontaktu / zderzenia z innym organizmem
-        pass
+    def collision(self, encountered_organism):
+        """
+        Checks strength of both organisms and returns stronger one - this is default solution
+        :param encountered_organism: object of encounteres organism
+        :return: object of winning organism
+        """
+        if self.strength > encountered_organism.strength:
+            return self
+        else:
+            return encountered_organism
 
     def movement_sanity_check(self, new_position: Tuple, world_reference: object) -> Tuple:
         """

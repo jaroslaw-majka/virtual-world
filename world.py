@@ -123,12 +123,4 @@ class World:
 
     def encounter(self, moving_organism, occupying_organism):
         # TODO Temporay method.
-        print(occupying_organism)
-        print(f'Field taken by: {type(occupying_organism)}')
-        print(f'It\'s strength is {occupying_organism.strength}')
-        if moving_organism.strength > occupying_organism.strength:
-            print('Wolf won')
-            World.organisms_list.append(moving_organism)
-        else:
-            print('Wolf lost')
-            World.organisms_list.append(occupying_organism)
+        World.organisms_list.append(moving_organism.collision(occupying_organism))
