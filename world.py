@@ -78,6 +78,8 @@ class World:
         else:
             return number_of_animals
 
+    # TODO make each of those "create" methods return object
+    #  and in creation method implement list comprehension for list append
     def create_wolf(self) -> object:
         """
         Creates object of Wolf class
@@ -113,6 +115,7 @@ class World:
         """
         World.organisms_list.append(Antelope(self, self.turn_since_start))
 
+    # TODO Think if it's better to create one method that will check the field and trigger encounter when necessary
     def free_field_check(self, organism) -> object:
         """
         Checks if the field is empty, if not returns an object that is occupying it.
@@ -122,5 +125,5 @@ class World:
                 return World.organisms_list.pop(idx)
 
     def encounter(self, moving_organism, occupying_organism):
-        # TODO Temporay method.
+        # TODO Temporary method.
         World.organisms_list.append(moving_organism.collision(occupying_organism))
