@@ -34,6 +34,7 @@ class World:
         # TODO Remove below prints
         print(f'Pozycja człowieka: {World.human.position}')
         print(World.organisms_list)
+        self.movement_queue()
 
     def start_menu(self) -> None:
         """
@@ -100,3 +101,16 @@ class World:
                 World.organisms_list.append(organism_list[idx])
             else:
                 self.encounter(organism_list[idx], occupying_organism)
+
+    # TODO Refactor!
+    def movement_queue(self):
+        list_of_7_ini = [animal for animal in self.organisms_list if animal.initiative == 7]
+        list_of_5_ini = [animal for animal in self.organisms_list if animal.initiative == 5]
+        list_of_4_ini = [animal for animal in self.organisms_list if animal.initiative == 4]
+        list_of_4_ini.append(World.human)
+        list_of_1_ini = [animal for animal in self.organisms_list if animal.initiative == 1]
+        list_of_7_ini.sort(key=lambda element: element.creation_time)
+        list_of_5_ini.sort(key=lambda element: element.creation_time)
+        list_of_4_ini.sort(key=lambda element: element.creation_time)
+        list_of_1_ini.sort(key=lambda element: element.creation_time)
+        print(list_of_7_ini + list_of_5_ini + list_of_4_ini + list_of_1_ini)
