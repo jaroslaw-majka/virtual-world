@@ -18,7 +18,6 @@ class World:
     def make_a_turn(self):
         # Sprawi, że organizmy wykonają swój ruch zgodnie z założeniami.
         while True:
-            # Human.action(World.human)
             self.make_a_move()
             self.turn_since_start += 1
 
@@ -34,7 +33,6 @@ class World:
         World.organisms_list.insert(0, self.create_human())
         print(f'Pozycja człowieka: {[]}')
         print(World.organisms_list)
-        self.movement_queue()
 
     def start_menu(self) -> None:
         """
@@ -117,8 +115,9 @@ class World:
         while starting_initiative != 0:
             final_list += sorted([animal for animal in World.organisms_list if animal.initiative == starting_initiative],
                                  key=lambda element: element.creation_time)
-            print(final_list)
             starting_initiative -= 1
+        #TODO remove below print
+        print(final_list)
         return final_list
 
     def make_a_move(self):
