@@ -19,6 +19,7 @@ class World:
         # Sprawi, że organizmy wykonają swój ruch zgodnie z założeniami.
         while True:
             # Human.action(World.human)
+            self.make_a_move()
             self.turn_since_start += 1
 
     def create_world(self) -> object:
@@ -119,3 +120,8 @@ class World:
             print(final_list)
             starting_initiative -= 1
         return final_list
+
+    def make_a_move(self):
+        ordered_list = self.movement_queue()
+        for idx in range(len(ordered_list)):
+            ordered_list[idx].action()
