@@ -104,13 +104,21 @@ class World:
 
     # TODO Refactor!
     def movement_queue(self):
-        list_of_7_ini = [animal for animal in self.organisms_list if animal.initiative == 7]
-        list_of_5_ini = [animal for animal in self.organisms_list if animal.initiative == 5]
-        list_of_4_ini = [animal for animal in self.organisms_list if animal.initiative == 4]
-        list_of_4_ini.append(World.human)
-        list_of_1_ini = [animal for animal in self.organisms_list if animal.initiative == 1]
-        list_of_7_ini.sort(key=lambda element: element.creation_time)
-        list_of_5_ini.sort(key=lambda element: element.creation_time)
-        list_of_4_ini.sort(key=lambda element: element.creation_time)
-        list_of_1_ini.sort(key=lambda element: element.creation_time)
-        print(list_of_7_ini + list_of_5_ini + list_of_4_ini + list_of_1_ini)
+        # list_of_7_ini = [animal for animal in self.organisms_list if animal.initiative == 7]
+        # list_of_5_ini = [animal for animal in self.organisms_list if animal.initiative == 5]
+        # list_of_4_ini = [animal for animal in self.organisms_list if animal.initiative == 4]
+        # list_of_4_ini.append(World.human)
+        # list_of_1_ini = [animal for animal in self.organisms_list if animal.initiative == 1]
+        # list_of_7_ini.sort(key=lambda element: element.creation_time)
+        # list_of_5_ini.sort(key=lambda element: element.creation_time)
+        # list_of_4_ini.sort(key=lambda element: element.creation_time)
+        # list_of_1_ini.sort(key=lambda element: element.creation_time)
+        # print(list_of_7_ini + list_of_5_ini + list_of_4_ini + list_of_1_ini)
+
+        starting_initiative = max(World.organisms_list, key=lambda organism: organism.initiative).initiative
+        final_list = []
+        while starting_initiative != 0:
+            final_list += sorted([animal for animal in World.organisms_list if animal.initiative == starting_initiative],
+                                 key=lambda element: element.creation_time)
+            print(final_list)
+            starting_initiative -= 1
