@@ -22,9 +22,13 @@ class Organism:
         :param encountered_organism: object of encounteres organism
         :return: object of winning organism
         """
+        # TODO Make below prints beauty!
+        print(f'{self} encountered {encountered_organism}')
         if self.strength > encountered_organism.strength:
+            print(f'{self} won!')
             return self
         else:
+            print(f'{encountered_organism} won!')
             return encountered_organism
 
     def movement_sanity_check(self, new_position: Tuple, world_reference: object) -> Tuple:

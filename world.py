@@ -7,7 +7,6 @@ from antelope import Antelope
 
 
 class World:
-    human = object
     organisms_list = []
     
     def __init__(self):
@@ -19,7 +18,7 @@ class World:
     def make_a_turn(self):
         # Sprawi, że organizmy wykonają swój ruch zgodnie z założeniami.
         while True:
-            Human.action(World.human)
+            # Human.action(World.human)
             self.turn_since_start += 1
 
     def create_world(self) -> object:
@@ -28,11 +27,11 @@ class World:
         """
         self.n_axis = int(input('Podaj szerokość świata: '))
         self.m_axis = int(input('Podaj długość świata: '))
-        self.create_human()
         for idx in range(self.number_of_starting_animals()):
             self.create_organism()
         # TODO Remove below prints
-        print(f'Pozycja człowieka: {World.human.position}')
+        World.organisms_list.insert(0, self.create_human())
+        print(f'Pozycja człowieka: {[]}')
         print(World.organisms_list)
         self.movement_queue()
 
@@ -63,7 +62,7 @@ class World:
         """
         Creates object of Human class
         """
-        World.human = Human(self, self.turn_since_start)
+        return Human(self, self.turn_since_start)
 
     def number_of_starting_animals(self) -> int:
         """
@@ -82,14 +81,19 @@ class World:
         for idx in range(len(World.organisms_list)):
             if organism.position == World.organisms_list[idx].position:
                 return World.organisms_list.pop(idx)
-        if organism.position == World.human.position:
-            return World.human
 
-    def encounter(self, moving_organism, occupying_organism):
-        # TODO Temporary method.
+    def encounter(self, moving_organism, occupying_organism) -> None:
+        """
+        Triggers encounter when called
+        :param moving_organism: organism that moved onto the field
+        :param occupying_organism: organism that defends the field
+        """
         World.organisms_list.append(moving_organism.collision(occupying_organism))
 
-    def create_organism(self):
+    def create_organism(self) -> None:
+        """
+        Creates organisms when world is created.
+        """
         organism_list = [Wolf(self, self.turn_since_start),
                          Sheep(self, self.turn_since_start),
                          Fox(self, self.turn_since_start),
@@ -102,19 +106,11 @@ class World:
             else:
                 self.encounter(organism_list[idx], occupying_organism)
 
-    # TODO Refactor!
-    def movement_queue(self):
-        # list_of_7_ini = [animal for animal in self.organisms_list if animal.initiative == 7]
-        # list_of_5_ini = [animal for animal in self.organisms_list if animal.initiative == 5]
-        # list_of_4_ini = [animal for animal in self.organisms_list if animal.initiative == 4]
-        # list_of_4_ini.append(World.human)
-        # list_of_1_ini = [animal for animal in self.organisms_list if animal.initiative == 1]
-        # list_of_7_ini.sort(key=lambda element: element.creation_time)
-        # list_of_5_ini.sort(key=lambda element: element.creation_time)
-        # list_of_4_ini.sort(key=lambda element: element.creation_time)
-        # list_of_1_ini.sort(key=lambda element: element.creation_time)
-        # print(list_of_7_ini + list_of_5_ini + list_of_4_ini + list_of_1_ini)
-
+    def movement_queue(self) -> list:
+        """
+        Creates ordered by initiative list for organisms to make a move
+        If initiative is equal orders organisms by their age
+        """
         starting_initiative = max(World.organisms_list, key=lambda organism: organism.initiative).initiative
         final_list = []
         while starting_initiative != 0:
@@ -122,3 +118,4 @@ class World:
                                  key=lambda element: element.creation_time)
             print(final_list)
             starting_initiative -= 1
+        return final_list
