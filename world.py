@@ -79,7 +79,6 @@ class World:
         """
         Checks if the field is empty, if not returns an object that is occupying it.
         """
-        [organism for organism in World.organisms_list]
         for idx in range(len(World.organisms_list)):
             if organism_position == World.organisms_list[idx].position:
                 return World.organisms_list.pop(idx)
@@ -116,6 +115,12 @@ class World:
         organism.position = proposed_position
 
     def encounter_check(self, organism, no_encounter_func):
+        """
+        Returns objects occupying the field and triggers encounter if needed
+        :param organism:
+        :param no_encounter_func:
+        :return:
+        """
         occupying_organism = self.free_field_check(organism.position)
         if occupying_organism:
             self.encounter(organism, occupying_organism)
@@ -139,5 +144,12 @@ class World:
 
     def make_a_move(self):
         ordered_list = self.movement_queue()
-        for idx in range(len(ordered_list)):
-            ordered_list[idx].action()
+        for moving_organism in ordered_list:
+            moving_organism.action()
+            # TODO Needs refactoring when finished
+            positional_list = [organism for organism in World.organisms_list if organism.position == moving_organism.position]
+            print(positional_list)
+            if len(positional_list) > 1:
+                attacker = moving_organism
+                defender = [defender for defender in positional_list][0]
+                attacker.collision(defender)
