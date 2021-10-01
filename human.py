@@ -15,7 +15,7 @@ class Human(Animal):
         # ale kierunek jego ruchu definiowany jest przez uzytkownika poprzez wciśnięcie odpowiedniego klawisza
         action = self.movement_menu()
         if action in 'news':
-            self.move_in_desired_direction(action, self.world_reference)
+            self.move_in_desired_direction(self.world_reference, action)
 
     def collision(self):
         # Człowiek będzie posiadał specjalną umiejętność, którą można aktywować

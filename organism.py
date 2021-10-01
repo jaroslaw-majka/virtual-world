@@ -13,7 +13,7 @@ class Organism:
         """
         Default Organism movement during the turn
         """
-        self.move_in_desired_direction(choice('news'), self.world_reference)
+        return self.move_in_desired_direction(self.world_reference)
 
     def collision(self, encountered_organism):
         """
@@ -22,7 +22,8 @@ class Organism:
         :return: object of winning organism
         """
         # TODO Make below prints beauty!
-        print(f'{self} encountered {encountered_organism}')
+        print(f'{self} at {self.position} encountered '
+              f'{encountered_organism} at {encountered_organism.position}')
         if self.strength > encountered_organism.strength:
             print(f'{self} won!')
             return self
@@ -40,15 +41,19 @@ class Organism:
                 or new_position[0] > world_reference.n_axis \
                 or new_position[1] > world_reference.m_axis:
             print('Nie można iść w tym kierunku, pozycja nie zmieniona.')
+            return self.position
         else:
-            self.position = new_position
+            return new_position
 
-    def move_in_desired_direction(self, direction: str, world_reference: object) -> Tuple:
+    def move_in_desired_direction(self, world_reference: object, direction=None) -> Tuple:
         """
         :param world_reference: world reference object for world dimensions check
         :param direction: str value of the direction
         :return: updated position
         """
+        if not direction:
+            direction = choice('news')
+
         if direction == 'n':
             new_position = (self.position[0] + 1, self.position[1])
         elif direction == 's':
@@ -62,3 +67,6 @@ class Organism:
 
     def starting_position(self, world_reference):
         return randrange(world_reference.n_axis) + 1, randrange(world_reference.m_axis) + 1
+
+# TODO Fix new position saving (cuyrrently saves as None)
+# TODO Check if bug still exists and fix if needed

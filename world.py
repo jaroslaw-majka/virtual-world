@@ -75,12 +75,12 @@ class World:
         else:
             return number_of_animals
 
-    def free_field_check(self, organism) -> object:
+    def free_field_check(self, organism_position) -> object:
         """
         Checks if the field is empty, if not returns an object that is occupying it.
         """
         for idx in range(len(World.organisms_list)):
-            if organism.position == World.organisms_list[idx].position:
+            if organism_position == World.organisms_list[idx].position:
                 return World.organisms_list.pop(idx)
 
     def encounter(self, moving_organism, occupying_organism) -> None:
@@ -101,22 +101,26 @@ class World:
                          Tortoise(self, self.turn_since_start),
                          Antelope(self, self.turn_since_start)]
         for idx in range(len(organism_list)):
-            self.encounter_check(organism_list[idx], self.append_new_organism)
+            self.encounter_check(organism_list[idx], organism_list[idx].position, self.append_new_organism)
 
-    def append_new_organism(self, organism: object) -> list:
+    def append_new_organism(self, organism: object, position=None) -> list:
         """
         Appends new organism to a list
         Called only at organism creation
+        :param position: dummy variable
         :param organism: instance of a new organism
         """
         World.organisms_list.append(organism)
 
-    def encounter_check(self, organism, no_encounter_func):
-        occupying_organism = self.free_field_check(organism)
+    def move_to_empty_field(self, organism, proposed_position):
+        organism.position = proposed_position
+
+    def encounter_check(self, organism, organism_position, no_encounter_func):
+        occupying_organism = self.free_field_check(organism_position)
         if occupying_organism:
             self.encounter(organism, occupying_organism)
         else:
-            no_encounter_func(organism)
+            no_encounter_func(organism, organism_position)
 
     def movement_queue(self) -> list:
         """
@@ -136,4 +140,5 @@ class World:
     def make_a_move(self):
         ordered_list = self.movement_queue()
         for idx in range(len(ordered_list)):
-            ordered_list[idx].action()
+            proposed_position = ordered_list[idx].action()
+            self.encounter_check(ordered_list[idx], proposed_position, self.move_to_empty_field)
