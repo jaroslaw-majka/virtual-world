@@ -66,6 +66,3 @@ class Organism:
 
     def starting_position(self, world_reference):
         return randrange(world_reference.n_axis) + 1, randrange(world_reference.m_axis) + 1
-
-# TODO Fix new position saving (cuyrrently saves as None)
-# TODO Check if bug still exists and fix if needed
