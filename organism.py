@@ -13,8 +13,7 @@ class Organism:
         """
         Default Organism movement during the turn
         """
-        action = choice('news')
-        self.move_in_desired_direction(action, self.world_reference)
+        self.move_in_desired_direction(choice('news'), self.world_reference)
 
     def collision(self, encountered_organism):
         """

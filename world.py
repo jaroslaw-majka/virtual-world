@@ -15,8 +15,10 @@ class World:
         self.turn_since_start = 0
         self.main()
 
-    def make_a_turn(self):
-        # Sprawi, że organizmy wykonają swój ruch zgodnie z założeniami.
+    def make_a_turn(self) -> None:
+        """
+        Starts a new turn in game
+        """
         while True:
             self.make_a_move()
             self.turn_since_start += 1
@@ -83,7 +85,7 @@ class World:
 
     def encounter(self, moving_organism, occupying_organism) -> None:
         """
-        Triggers encounter when called
+        Triggers encounter when needed
         :param moving_organism: organism that moved onto the field
         :param occupying_organism: organism that defends the field
         """
@@ -99,11 +101,22 @@ class World:
                          Tortoise(self, self.turn_since_start),
                          Antelope(self, self.turn_since_start)]
         for idx in range(len(organism_list)):
-            occupying_organism = self.free_field_check(organism_list[idx])
-            if not occupying_organism:
-                World.organisms_list.append(organism_list[idx])
-            else:
-                self.encounter(organism_list[idx], occupying_organism)
+            self.encounter_check(organism_list[idx], self.append_new_organism)
+
+    def append_new_organism(self, organism: object) -> list:
+        """
+        Appends new organism to a list
+        Called only at organism creation
+        :param organism: instance of a new organism
+        """
+        World.organisms_list.append(organism)
+
+    def encounter_check(self, organism, no_encounter_func):
+        occupying_organism = self.free_field_check(organism)
+        if occupying_organism:
+            self.encounter(organism, occupying_organism)
+        else:
+            no_encounter_func(organism)
 
     def movement_queue(self) -> list:
         """
