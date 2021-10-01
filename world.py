@@ -142,14 +142,25 @@ class World:
         print(final_list)
         return final_list
 
-    def make_a_move(self):
+    def make_a_move(self) -> None:
+        """
+        Applies logic for movement acction.
+        :return: organism object with updated position
+        """
         ordered_list = self.movement_queue()
         for moving_organism in ordered_list:
             moving_organism.action()
-            # TODO Needs refactoring when finished
-            positional_list = [organism for organism in World.organisms_list if organism.position == moving_organism.position]
-            print(positional_list)
-            if len(positional_list) > 1:
-                attacker = moving_organism
-                defender = [defender for defender in positional_list][0]
-                attacker.collision(defender)
+            self.attack_occupant(moving_organism)
+
+    def attack_occupant(self, attacker) -> None:
+        """
+        Checks if field was taken and if needed triggers collision method.
+        :param attacker: instance of an object that moved onto the field.
+        """
+        positional_list = [organism for organism in World.organisms_list if
+                           organism.position == attacker.position]
+        print(positional_list)
+        if len(positional_list) > 1:
+            defender = positional_list[0]
+            attacker.collision(defender)
+            # TODO This method does not remove loser, add this feature.
