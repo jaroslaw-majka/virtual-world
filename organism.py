@@ -13,7 +13,7 @@ class Organism:
         """
         Default Organism movement during the turn
         """
-        return self.move_in_desired_direction(self.world_reference)
+        self.move_in_desired_direction(self.world_reference)
 
     def collision(self, encountered_organism):
         """
@@ -41,9 +41,9 @@ class Organism:
                 or new_position[0] > world_reference.n_axis \
                 or new_position[1] > world_reference.m_axis:
             print('Nie można iść w tym kierunku, pozycja nie zmieniona.')
-            return self.position
         else:
-            return new_position
+            print(f'{self} moved to {new_position}')
+            self.position = new_position
 
     def move_in_desired_direction(self, world_reference: object, direction=None) -> Tuple:
         """
@@ -63,7 +63,6 @@ class Organism:
         elif direction == 'w':
             new_position = (self.position[0], self.position[1] - 1)
         self.movement_sanity_check(new_position, world_reference)
-        print(self.position)
 
     def starting_position(self, world_reference):
         return randrange(world_reference.n_axis) + 1, randrange(world_reference.m_axis) + 1

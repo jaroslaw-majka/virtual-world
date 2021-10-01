@@ -140,5 +140,4 @@ class World:
     def make_a_move(self):
         ordered_list = self.movement_queue()
         for idx in range(len(ordered_list)):
-            proposed_position = ordered_list[idx].action()
-            self.encounter_check(ordered_list[idx], proposed_position, self.move_to_empty_field)
+            ordered_list[idx].action()
