@@ -17,12 +17,6 @@ class Human(Animal):
         if action in 'news':
             self.move_in_desired_direction(self.world_reference, action)
 
-    def collision(self):
-        # Człowiek będzie posiadał specjalną umiejętność, którą można aktywować
-        # która będzie wpływała na sposób działania tej metody przez 5 tur
-        # potem ta umiejętność przez kolejnych 5 tur będzie nieaktywna
-        pass
-
     def movement_menu(self) -> str:
         """
         Prints action menu for user to decide
