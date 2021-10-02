@@ -89,7 +89,11 @@ class World:
         :param moving_organism: organism that moved onto the field
         :param occupying_organism: organism that defends the field
         """
-        World.organisms_list.append(moving_organism.collision(occupying_organism))
+        loser = moving_organism.collision(occupying_organism)
+        if loser == moving_organism:
+            World.organisms_list.append(occupying_organism)
+        elif loser == occupying_organism:
+            World.organisms_list.append(moving_organism)
 
     def create_organism(self) -> None:
         """
@@ -110,14 +114,6 @@ class World:
         :param organism: instance of a new organism
         """
         World.organisms_list.append(organism)
-
-    def move_to_empty_field(self, organism, proposed_position) -> None:
-        """
-        Assigns new postition to an object
-        :param organism: instance of an object that will get updated position
-        :param proposed_position: new position
-        """
-        organism.position = proposed_position
 
     def encounter_check(self, organism, no_encounter_func):
         """
@@ -154,25 +150,43 @@ class World:
         """
         ordered_list = self.movement_queue()
         for moving_organism in ordered_list:
+            pre_move_position = moving_organism.position
             moving_organism.action()
-            self.attack_occupant(moving_organism)
+            self.attack_occupant(moving_organism, pre_move_position)
 
-    def attack_occupant(self, attacker) -> None:
+    def attack_occupant(self, attacker: object, pre_move_position: tuple) -> None:
         """
         Checks if field was taken and if needed triggers collision method.
+        :param pre_move_position: Moving organism position before the move was made
         :param attacker: instance of an object that moved onto the field.
         """
-        def trigger_attack() -> None:
+        def check_organism_type() -> None:
             """
-            Collision logic
+            Checks organism type and triggers attack or multiplication
             """
             positional_list.remove(attacker)
             defender = positional_list[0]
+            if type(attacker) == type(defender):
+                trigger_multiplication(attacker, defender)
+            else:
+                trigger_attack(defender)
+
+        def trigger_attack(defender) -> None:
+            """
+            Triggers organisms battle
+            """
             loser = attacker.collision(defender)
             World.organisms_list.remove(loser)
+
+        def trigger_multiplication(organism_1, organism_2) -> object:
+            """
+            Triggers organisms multiplication
+            """
+            # TODO Need to check fields around both organisms, choose empty and create a new object there
+            print(f'Attacker: {type(organism_1)}')
+            print(f'Defender: {type(organism_2)}')
 
         positional_list = [organism for organism in World.organisms_list if
                            organism.position == attacker.position]
         if len(positional_list) > 1:
-            trigger_attack()
-
+            check_organism_type()
