@@ -17,7 +17,7 @@ class Organism:
 
     def collision(self, encountered_organism):
         """
-        Checks strength of both organisms and returns stronger one - this is default solution
+        Checks strength of both organisms and returns weaker one for deletion - this is a default solution
         :param encountered_organism: object of encounteres organism
         :return: object of loosing organism
         """
