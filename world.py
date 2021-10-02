@@ -162,5 +162,5 @@ class World:
         print(positional_list)
         if len(positional_list) > 1:
             defender = positional_list[0]
-            attacker.collision(defender)
-            # TODO This method does not remove loser, add this feature.
+            loser = attacker.collision(defender)
+            World.organisms_list.remove(loser)

@@ -19,17 +19,17 @@ class Organism:
         """
         Checks strength of both organisms and returns stronger one - this is default solution
         :param encountered_organism: object of encounteres organism
-        :return: object of winning organism
+        :return: object of loosing organism
         """
         # TODO Make below prints beauty!
         print(f'{self} at {self.position} encountered '
               f'{encountered_organism} at {encountered_organism.position}')
         if self.strength > encountered_organism.strength:
             print(f'{self} won!')
-            return self
+            return encountered_organism
         else:
             print(f'{encountered_organism} won!')
-            return encountered_organism
+            return self
 
     def movement_sanity_check(self, new_position: Tuple, world_reference: object) -> Tuple:
         """
