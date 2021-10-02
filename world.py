@@ -186,35 +186,38 @@ class World:
             check_area(organism_1, organism_2)
 
         def check_area(organism_1: object, organism_2: object) -> list:
-            def map_sanity_check(list_for_sanity_checking):
+            def list_of_all_fields_around(position_1: tuple, position_2: tuple) -> list:
+                """
+                Creates a list of all fields around 2 objects
+                """
+                list_of_all_fields = []
+                for organism in [position_1, position_2]:
+                    list_of_all_fields += [(organism[0] + 1, organism[1]), (organism[0] - 1, organism[1]),
+                                           (organism[0], organism[1] + 1), (organism[0], organism[1] - 1)]
+                return list_of_all_fields
+
+            def map_sanity_check(list_for_sanity_checking: list) -> list:
+                """
+                Checks if provided list does not contain fields that are out of the map range.
+                :param list_for_sanity_checking:
+                """
                 for spot in list_for_sanity_checking:
                     if spot[0] <= 0 or spot[1] <= 0 or spot[0] > self.n_axis or spot[1] > self.m_axis:
                         list_for_sanity_checking.remove(spot)
                 return list(set(list_for_sanity_checking))
 
-            starting_position_org_1 = organism_1.position
-            starting_position_org_2 = organism_2.position
-            print(f'Organism 1: {starting_position_org_1}\nOrganism 2: {starting_position_org_2}')
-            list_for_checking = []
-            for organism in [organism_1.position, organism_2.position]:
-                list_for_checking += [(organism[0] + 1, organism[1]), (organism[0] - 1, organism[1]),
-                                      (organism[0], organism[1] + 1), (organism[0], organism[1] - 1)]
-                print(list_for_checking)
+            def create_final_list(list_for_empty_space_checking: list) -> list:
+                """
+                Creates a list of empty spaces for a new organism to be created.
+                :param list_for_empty_space_checking:
+                """
+                final_list = []
+                for field in list_for_empty_space_checking:
+                    if not self.free_field_check(field):
+                        final_list.append(field)
+                return final_list
 
-            organism_1_surroundings = [(starting_position_org_1[0] + 1, starting_position_org_1[1]),
-                                       (starting_position_org_1[0] - 1, starting_position_org_1[1]),
-                                       (starting_position_org_1[0], starting_position_org_1[1] + 1),
-                                       (starting_position_org_1[0], starting_position_org_1[1] - 1)]
-            organism_2_surroundings = [(starting_position_org_2[0] + 1, starting_position_org_2[1]),
-                                       (starting_position_org_2[0] - 1, starting_position_org_2[1]),
-                                       (starting_position_org_2[0], starting_position_org_2[1] + 1),
-                                       (starting_position_org_2[0], starting_position_org_2[1] - 1)]
-            list_for_checking = map_sanity_check(organism_1_surroundings + organism_2_surroundings)
-            final_list = []
-            for field in list_for_checking:
-                if not self.free_field_check(field):
-                    final_list.append(field)
-            print(f'Lista wolnych pól: {final_list}')
+            print(f'Lista wolnych pól: {create_final_list(map_sanity_check(list_of_all_fields_around(organism_1.position, organism_2.position)))}')
 
         positional_list = [organism for organism in World.organisms_list if
                            organism.position == attacker.position]
