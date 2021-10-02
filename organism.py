@@ -64,5 +64,5 @@ class Organism:
             new_position = (self.position[0], self.position[1] - 1)
         self.movement_sanity_check(new_position, world_reference)
 
-    def starting_position(self, world_reference):
+    def starting_position(self, world_reference: object) -> Tuple:
         return randrange(world_reference.n_axis) + 1, randrange(world_reference.m_axis) + 1

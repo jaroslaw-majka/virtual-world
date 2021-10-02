@@ -183,6 +183,7 @@ class World:
             Triggers organisms multiplication
             """
             # TODO Need to check fields around both organisms, choose empty and create a new object there
+            organism_1.position = pre_move_position
             check_area(organism_1, organism_2)
 
         def check_area(organism_1: object, organism_2: object) -> list:
@@ -197,6 +198,9 @@ class World:
                                        (starting_position_org_2[0], starting_position_org_2[1] + 1),
                                        (starting_position_org_2[0], starting_position_org_2[1] - 1)]
             list_for_checking = organism_1_surroundings + organism_2_surroundings
+            for field in list_for_checking:
+                if field[0] <= 0 or field[1] <= 0 or field[0] > self.n_axis or field[1] > self.m_axis:
+                    list_for_checking.remove(field)
             final_list = []
             for field in list_for_checking:
                 if not self.free_field_check(field):
