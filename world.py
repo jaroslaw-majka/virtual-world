@@ -33,7 +33,6 @@ class World:
             self.create_organism()
         # TODO Remove below prints
         World.organisms_list.insert(0, self.create_human())
-        print(f'Pozycja człowieka: {[]}')
         print(World.organisms_list)
 
     def start_menu(self) -> None:
@@ -187,8 +186,21 @@ class World:
             check_area(organism_1, organism_2)
 
         def check_area(organism_1: object, organism_2: object) -> list:
+            def map_sanity_check(list_for_sanity_checking):
+                for field in list_for_sanity_checking:
+                    if field[0] <= 0 or field[1] <= 0 or field[0] > self.n_axis or field[1] > self.m_axis:
+                        list_for_sanity_checking.remove(field)
+                return list(set(list_for_sanity_checking))
+
             starting_position_org_1 = organism_1.position
             starting_position_org_2 = organism_2.position
+            print(f'Organism 1: {starting_position_org_1}\nOrganism 2: {starting_position_org_2}')
+            list_for_checking = []
+            for organism in [organism_1.position, organism_2.position]:
+                list_for_checking += [(organism[0] + 1, organism[1]), (organism[0] - 1, organism[1]),
+                                      (organism[0], organism[1] + 1), (organism[0], organism[1] - 1)]
+                print(list_for_checking)
+
             organism_1_surroundings = [(starting_position_org_1[0] + 1, starting_position_org_1[1]),
                                        (starting_position_org_1[0] - 1, starting_position_org_1[1]),
                                        (starting_position_org_1[0], starting_position_org_1[1] + 1),
@@ -197,15 +209,12 @@ class World:
                                        (starting_position_org_2[0] - 1, starting_position_org_2[1]),
                                        (starting_position_org_2[0], starting_position_org_2[1] + 1),
                                        (starting_position_org_2[0], starting_position_org_2[1] - 1)]
-            list_for_checking = organism_1_surroundings + organism_2_surroundings
-            for field in list_for_checking:
-                if field[0] <= 0 or field[1] <= 0 or field[0] > self.n_axis or field[1] > self.m_axis:
-                    list_for_checking.remove(field)
+            list_for_checking = map_sanity_check(organism_1_surroundings + organism_2_surroundings)
             final_list = []
             for field in list_for_checking:
                 if not self.free_field_check(field):
                     final_list.append(field)
-            print(f'Lista wolnych pól: {set(final_list)}')
+            print(f'Lista wolnych pól: {final_list}')
 
         positional_list = [organism for organism in World.organisms_list if
                            organism.position == attacker.position]
