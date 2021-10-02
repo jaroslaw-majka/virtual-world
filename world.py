@@ -111,7 +111,12 @@ class World:
         """
         World.organisms_list.append(organism)
 
-    def move_to_empty_field(self, organism, proposed_position):
+    def move_to_empty_field(self, organism, proposed_position) -> None:
+        """
+        Assigns new postition to an object
+        :param organism: instance of an object that will get updated position
+        :param proposed_position: new position
+        """
         organism.position = proposed_position
 
     def encounter_check(self, organism, no_encounter_func):
