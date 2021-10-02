@@ -187,9 +187,9 @@ class World:
 
         def check_area(organism_1: object, organism_2: object) -> list:
             def map_sanity_check(list_for_sanity_checking):
-                for field in list_for_sanity_checking:
-                    if field[0] <= 0 or field[1] <= 0 or field[0] > self.n_axis or field[1] > self.m_axis:
-                        list_for_sanity_checking.remove(field)
+                for spot in list_for_sanity_checking:
+                    if spot[0] <= 0 or spot[1] <= 0 or spot[0] > self.n_axis or spot[1] > self.m_axis:
+                        list_for_sanity_checking.remove(spot)
                 return list(set(list_for_sanity_checking))
 
             starting_position_org_1 = organism_1.position
