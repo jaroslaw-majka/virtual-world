@@ -162,11 +162,17 @@ class World:
         Checks if field was taken and if needed triggers collision method.
         :param attacker: instance of an object that moved onto the field.
         """
-        positional_list = [organism for organism in World.organisms_list if
-                           organism.position == attacker.position]
-        if len(positional_list) > 1:
-            print(positional_list)
+        def trigger_attack() -> None:
+            """
+            Collision logic
+            """
             positional_list.remove(attacker)
             defender = positional_list[0]
             loser = attacker.collision(defender)
             World.organisms_list.remove(loser)
+
+        positional_list = [organism for organism in World.organisms_list if
+                           organism.position == attacker.position]
+        if len(positional_list) > 1:
+            trigger_attack()
+
