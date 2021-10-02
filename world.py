@@ -183,8 +183,25 @@ class World:
             Triggers organisms multiplication
             """
             # TODO Need to check fields around both organisms, choose empty and create a new object there
-            print(f'Attacker: {type(organism_1)}')
-            print(f'Defender: {type(organism_2)}')
+            check_area(organism_1, organism_2)
+
+        def check_area(organism_1: object, organism_2: object) -> list:
+            starting_position_org_1 = organism_1.position
+            starting_position_org_2 = organism_2.position
+            organism_1_surroundings = [(starting_position_org_1[0] + 1, starting_position_org_1[1]),
+                                       (starting_position_org_1[0] - 1, starting_position_org_1[1]),
+                                       (starting_position_org_1[0], starting_position_org_1[1] + 1),
+                                       (starting_position_org_1[0], starting_position_org_1[1] - 1)]
+            organism_2_surroundings = [(starting_position_org_2[0] + 1, starting_position_org_2[1]),
+                                       (starting_position_org_2[0] - 1, starting_position_org_2[1]),
+                                       (starting_position_org_2[0], starting_position_org_2[1] + 1),
+                                       (starting_position_org_2[0], starting_position_org_2[1] - 1)]
+            list_for_checking = organism_1_surroundings + organism_2_surroundings
+            final_list = []
+            for field in list_for_checking:
+                if not self.free_field_check(field):
+                    final_list.append(field)
+            print(f'Lista wolnych pól: {set(final_list)}')
 
         positional_list = [organism for organism in World.organisms_list if
                            organism.position == attacker.position]
