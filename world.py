@@ -164,8 +164,9 @@ class World:
         """
         positional_list = [organism for organism in World.organisms_list if
                            organism.position == attacker.position]
-        print(positional_list)
         if len(positional_list) > 1:
+            print(positional_list)
+            positional_list.remove(attacker)
             defender = positional_list[0]
             loser = attacker.collision(defender)
             World.organisms_list.remove(loser)
