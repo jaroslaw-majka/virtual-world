@@ -184,7 +184,6 @@ class World:
             organism_1.position = pre_move_position
             free_fields = check_area(organism_1, organism_2)
             print(free_fields)
-            organism_1.multiplication(free_fields)
 
         def check_area(organism_1: object, organism_2: object) -> list:
             def list_of_all_fields_around(position_1: tuple, position_2: tuple) -> list:
