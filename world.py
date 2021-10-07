@@ -104,28 +104,27 @@ class World:
                          Tortoise(self, self.turn_since_start),
                          Antelope(self, self.turn_since_start)]
         for idx in range(len(organism_list)):
-            self.encounter_check(organism_list[idx], self.append_new_organism)
+            self.encounter_check(organism_list[idx])
 
-    def append_new_organism(self, organism: object) -> list:
-        """
-        Appends new organism to a list
-        Called only at organism creation
-        :param organism: instance of a new organism
-        """
-        World.organisms_list.append(organism)
-
-    def encounter_check(self, organism, no_encounter_func):
+    def encounter_check(self, organism) -> object:
         """
         Returns objects occupying the field and triggers encounter if needed
         :param organism:
-        :param no_encounter_func:
         :return:
         """
+        def append_new_organism(new_organism: object) -> list:
+            """
+            Appends new organism to a list
+            Called only at organism creation
+            :param new_organism: instance of a new organism
+            """
+            World.organisms_list.append(new_organism)
+
         occupying_organism = self.free_field_check(organism.position)
         if occupying_organism:
             self.encounter(organism, occupying_organism)
         else:
-            no_encounter_func(organism)
+            append_new_organism(organism)
 
     def movement_queue(self) -> list:
         """
