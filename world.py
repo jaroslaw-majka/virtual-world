@@ -180,6 +180,7 @@ class World:
             """
             Triggers organisms multiplication
             """
+            # TODO This method removes both organisms from World.organisms_list. Debug
             # TODO Need to check fields around both organisms, choose empty and create a new object there
             organism_1.position = pre_move_position
             free_fields = check_area(organism_1, organism_2)
