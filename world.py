@@ -182,7 +182,8 @@ class World:
             """
             # TODO Need to check fields around both organisms, choose empty and create a new object there
             organism_1.position = pre_move_position
-            check_area(organism_1, organism_2)
+            free_fields = check_area(organism_1, organism_2)
+            print(free_fields)
 
         def check_area(organism_1: object, organism_2: object) -> list:
             def list_of_all_fields_around(position_1: tuple, position_2: tuple) -> list:
@@ -216,7 +217,8 @@ class World:
                         final_list.append(field)
                 return final_list
 
-            print(f'Lista wolnych pól: {create_final_list(map_sanity_check(list_of_all_fields_around(organism_1.position, organism_2.position)))}')
+            return create_final_list(
+                map_sanity_check(list_of_all_fields_around(organism_1.position, organism_2.position)))
 
         positional_list = [organism for organism in World.organisms_list if
                            organism.position == attacker.position]
