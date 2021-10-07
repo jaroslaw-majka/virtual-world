@@ -4,8 +4,6 @@ from random import choice, randrange
 
 class Organism:
     def __init__(self, world: object):
-        self.strength = None
-        self.initiative = None
         self.position = self.starting_position(self.world_reference)
         self.world_reference = world
 
