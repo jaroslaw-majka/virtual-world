@@ -3,9 +3,8 @@ from random import choice
 
 
 class Animal(Organism):
-    def __init__(self, world: object):
-        super().__init__(world)
-        self.world_reference = world
+    def __init__(self, world: object, creation_time: int):
+        super().__init__(world, creation_time)
 
     def action(self):
         """

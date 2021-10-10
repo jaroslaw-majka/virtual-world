@@ -3,8 +3,9 @@ from random import choice, randrange
 
 
 class Organism:
-    def __init__(self, world: object):
+    def __init__(self, world: object, creation_time: int):
         self.world_reference = world
+        self.creation_time = creation_time
         self.position = self.starting_position(self.world_reference)
 
     def movement_sanity_check(self, new_position: Tuple, world_reference: object) -> None:
