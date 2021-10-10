@@ -28,6 +28,11 @@ class Animal(Organism):
             print(f'{encountered_organism} won!')
             return self
 
+    # TODO Creates instance of Animal class.
+    def multiplication(self, possible_fields: list, world: object, creation_time: int) -> object:
+        self.position = choice(possible_fields)
+        return Animal(world, creation_time)
+
     def move_in_desired_direction(self, world_reference: object, direction=None) -> None:
         """
         :param world_reference: world reference object for world dimensions check
