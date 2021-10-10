@@ -212,9 +212,15 @@ class World:
                 Creates a list of empty spaces for a new organism to be created.
                 :param list_for_empty_space_checking:
                 """
+                def check_for_empty_field(position: tuple) -> bool:
+                    """Checks if field is empty"""
+                    for idx in range(len(World.organisms_list)):
+                        if position == World.organisms_list[idx].position:
+                            return True
+
                 final_list = []
                 for field in list_for_empty_space_checking:
-                    if not self.free_field_check(field):
+                    if not check_for_empty_field(field):
                         final_list.append(field)
                 return final_list
 
