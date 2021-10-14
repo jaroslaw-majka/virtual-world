@@ -180,18 +180,19 @@ class World:
             """
             Triggers organisms multiplication
             """
-            # TODO This method removes both organisms from World.organisms_list. Debug
-            # TODO Need to check fields around both organisms, choose empty and create a new object there
             organism_1.position = pre_move_position
             free_fields = check_area(organism_1, organism_2)
             print(free_fields)
-            new_organism = organism_1.multiplication(free_fields, self, self.turn_since_start)
-            # TODO Reformat below messy code
-            print(f'Utworzono nowy organizm: {new_organism}\n'
-                  f'Jego pozycja to: {new_organism.position}\n'
-                  f'Jego Tura utowrzenia to: {new_organism.creation_time}')
-            World.organisms_list.append(new_organism)
-            print(f'Aktualan lista organizmów to: {World.organisms_list}')
+            if free_fields:
+                new_organism = organism_1.multiplication(free_fields, self, self.turn_since_start)
+                # TODO Reformat below messy code
+                print(f'Utworzono nowy organizm: {new_organism}\n'
+                      f'Jego pozycja to: {new_organism.position}\n'
+                      f'Jego Tura utowrzenia to: {new_organism.creation_time}')
+                World.organisms_list.append(new_organism)
+                print(f'Aktualna lista organizmów to: {World.organisms_list}')
+            else:
+                print('Nie ma miejsca na nowy organizm.')
 
         def check_area(organism_1: object, organism_2: object) -> list:
             def list_of_all_fields_around(position_1: tuple, position_2: tuple) -> list:
