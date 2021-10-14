@@ -3,10 +3,10 @@ from random import choice, randrange
 
 
 class Organism:
-    def __init__(self, world: object, creation_time: int):
+    def __init__(self, world: object, creation_time: int, position = None):
         self.world_reference = world
         self.creation_time = creation_time
-        self.position = self.starting_position(self.world_reference)
+        self.position = self.set_position(position)
 
     def movement_sanity_check(self, new_position: Tuple, world_reference: object) -> None:
         """
@@ -24,3 +24,9 @@ class Organism:
 
     def starting_position(self, world_reference: object) -> Tuple:
         return randrange(world_reference.n_axis) + 1, randrange(world_reference.m_axis) + 1
+
+    def set_position(self, position):
+        if position:
+            return position
+        else:
+            return self.starting_position(self.world_reference)

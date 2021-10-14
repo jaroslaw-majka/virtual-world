@@ -6,6 +6,5 @@ class Fox(Animal):
         super().__init__(world, creation_time)
         self.strength = 3
         self.initiative = 7
-        self.position = self.starting_position(self.world_reference)
 
     # TODO override action method

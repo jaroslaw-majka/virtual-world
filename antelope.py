@@ -6,6 +6,5 @@ class Antelope(Animal):
         super().__init__(world, creation_time)
         self.strength = 4
         self.initiative = 4
-        self.position = self.starting_position(self.world_reference)
 
     # TODO Override action and collision methods

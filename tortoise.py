@@ -6,6 +6,5 @@ class Tortoise(Animal):
         super().__init__(world, creation_time)
         self.strength = 2
         self.initiative = 1
-        self.position = self.starting_position(self.world_reference)
 
     # TODO Override action and collision methods

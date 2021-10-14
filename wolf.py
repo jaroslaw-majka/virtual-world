@@ -6,4 +6,3 @@ class Wolf(Animal):
         super().__init__(world, creation_time)
         self.strength = 9
         self.initiative = 5
-        self.position = self.starting_position(self.world_reference)
