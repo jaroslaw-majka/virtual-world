@@ -3,7 +3,7 @@ from random import choice, randrange
 
 
 class Organism:
-    def __init__(self, world: object, creation_time: int, position = None):
+    def __init__(self, world: object, creation_time: int, position=None):
         self.world_reference = world
         self.creation_time = creation_time
         self.position = self.set_position(position)
