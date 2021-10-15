@@ -30,8 +30,9 @@ class Animal(Organism):
 
     # TODO Creates wrong starting position.
     def multiplication(self, possible_fields: list, world: object, creation_time: int) -> object:
-        self.position = choice(possible_fields)
-        return self.__class__(world, creation_time)
+        created_animal = self.__class__(world, creation_time)
+        created_animal.position = choice(possible_fields)
+        return created_animal
 
     def move_in_desired_direction(self, world_reference: object, direction=None) -> None:
         """
