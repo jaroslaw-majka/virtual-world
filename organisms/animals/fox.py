@@ -1,4 +1,4 @@
-from animal import Animal
+from organisms.animal import Animal
 
 
 class Fox(Animal):

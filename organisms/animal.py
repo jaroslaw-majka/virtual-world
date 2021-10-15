@@ -1,4 +1,4 @@
-from organism import Organism
+from organisms.organism import Organism
 from random import choice
 
 
@@ -6,7 +6,7 @@ class Animal(Organism):
     def __init__(self, world: object, creation_time: int):
         super().__init__(world, creation_time)
 
-    def action(self):
+    def action(self) -> None:
         """
         Default Organism movement during the turn
         """

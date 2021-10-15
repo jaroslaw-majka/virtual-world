@@ -1,9 +1,9 @@
-from human import Human
-from wolf import Wolf
-from sheep import Sheep
-from fox import Fox
-from tortoise import Tortoise
-from antelope import Antelope
+from organisms.animals.human import Human
+from organisms.animals.wolf import Wolf
+from organisms.animals.sheep import Sheep
+from organisms.animals.fox import Fox
+from organisms.animals.tortoise import Tortoise
+from organisms.animals.antelope import Antelope
 
 
 class World:

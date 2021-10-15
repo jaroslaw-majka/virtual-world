@@ -1,5 +1,4 @@
-from animal import Animal
-from random import randrange
+from organisms.animal import Animal
 
 
 class Human(Animal):

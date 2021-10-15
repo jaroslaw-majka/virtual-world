@@ -1,5 +1,4 @@
-from organism import Organism
-from random import random
+from organisms.organism import Organism
 
 
 class Plant(Organism):

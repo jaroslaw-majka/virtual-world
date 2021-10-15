@@ -1,5 +1,5 @@
 from typing import Tuple
-from random import choice, randrange
+from random import randrange
 
 
 class Organism:
