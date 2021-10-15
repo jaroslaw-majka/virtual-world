@@ -28,7 +28,6 @@ class Animal(Organism):
             print(f'{encountered_organism} won!')
             return self
 
-    # TODO Creates wrong starting position.
     def multiplication(self, possible_fields: list, world: object, creation_time: int) -> object:
         created_animal = self.__class__(world, creation_time)
         created_animal.position = choice(possible_fields)
