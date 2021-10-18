@@ -10,8 +10,6 @@ class Human(Animal):
         self.creation_time = creation_time
 
     def action(self):
-        # Człowiek może przemieścić się jedynie na sąsiednie pole
-        # ale kierunek jego ruchu definiowany jest przez uzytkownika poprzez wciśnięcie odpowiedniego klawisza
         action = self.movement_menu()
         if action in 'news':
             self.move_in_desired_direction(self.world_reference, action)

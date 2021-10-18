@@ -8,7 +8,7 @@ from organisms.animals.antelope import Antelope
 
 class World:
     organisms_list = []
-    
+
     def __init__(self):
         self.n_axis = None
         self.m_axis = None
@@ -104,7 +104,8 @@ class World:
                          Tortoise(self, self.turn_since_start),
                          Antelope(self, self.turn_since_start)]
         for idx in range(len(organism_list)):
-            # TODO When creating new organism. Organisms of same type can fight with each other. This should not be the case.
+            # TODO When creating new organism. Organisms of same type can fight with each other.
+            #  This should not be the case.
             self.encounter_check(organism_list[idx])
 
     def encounter_check(self, organism) -> object:
@@ -132,13 +133,15 @@ class World:
         Creates ordered by initiative list for organisms to make a move
         If initiative is equal orders organisms by their age
         """
-        starting_initiative = max(World.organisms_list, key=lambda organism: organism.initiative).initiative
+        starting_initiative = max(World.organisms_list,
+                                  key=lambda organism: organism.initiative).initiative
         final_list = []
         while starting_initiative != 0:
-            final_list += sorted([animal for animal in World.organisms_list if animal.initiative == starting_initiative],
+            final_list += sorted([animal for animal in World.organisms_list
+                                  if animal.initiative == starting_initiative],
                                  key=lambda element: element.creation_time)
             starting_initiative -= 1
-        #TODO remove below print
+        # TODO remove below print
         print(final_list)
         return final_list
 
@@ -202,8 +205,10 @@ class World:
                 """
                 list_of_all_fields = []
                 for organism in [position_1, position_2]:
-                    list_of_all_fields += [(organism[0] + 1, organism[1]), (organism[0] - 1, organism[1]),
-                                           (organism[0], organism[1] + 1), (organism[0], organism[1] - 1)]
+                    list_of_all_fields += [(organism[0] + 1, organism[1]),
+                                           (organism[0] - 1, organism[1]),
+                                           (organism[0], organism[1] + 1),
+                                           (organism[0], organism[1] - 1)]
                 return list_of_all_fields
 
             def map_sanity_check(list_for_sanity_checking: list) -> list:
@@ -212,7 +217,10 @@ class World:
                 :param list_for_sanity_checking:
                 """
                 for spot in list_for_sanity_checking:
-                    if spot[0] <= 0 or spot[1] <= 0 or spot[0] > self.n_axis or spot[1] > self.m_axis:
+                    if spot[0] <= 0 \
+                            or spot[1] <= 0 \
+                            or spot[0] > self.n_axis \
+                            or spot[1] > self.m_axis:
                         list_for_sanity_checking.remove(spot)
                 return list(set(list_for_sanity_checking))
 
@@ -234,7 +242,8 @@ class World:
                 return final_list
 
             return create_final_list(
-                map_sanity_check(list_of_all_fields_around(organism_1.position, organism_2.position)))
+                map_sanity_check(list_of_all_fields_around(organism_1.position,
+                                                           organism_2.position)))
 
         positional_list = [organism for organism in World.organisms_list if
                            organism.position == attacker.position]
