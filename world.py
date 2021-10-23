@@ -16,17 +16,13 @@ class World:
         self.main()
 
     def make_a_turn(self) -> None:
-        """
-        Starts a new turn in game
-        """
+        """ Starts a new turn in game """
         while True:
             self.make_a_move()
             self.turn_since_start += 1
 
     def create_world(self) -> object:
-        """
-        Creates a new world filled with organisms
-        """
+        """ Creates a new world filled with organisms """
         self.n_axis = int(input('Podaj szerokość świata: '))
         self.m_axis = int(input('Podaj długość świata: '))
         for idx in range(self.number_of_starting_animals()):
@@ -36,9 +32,7 @@ class World:
         print(World.organisms_list)
 
     def start_menu(self) -> None:
-        """
-        Start menu printed for player
-        """
+        """ Start menu printed for player """
         print('1. Nowa gra (swtórz nowy świat)')
         print('2. Wczytaj grę')
         print('0. Wyjdź')
