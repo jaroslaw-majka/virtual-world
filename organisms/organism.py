@@ -23,7 +23,12 @@ class Organism:
             self.position = new_position
 
     def starting_position(self, world_reference: object) -> Tuple:
-        return randrange(world_reference.n_axis) + 1, randrange(world_reference.m_axis) + 1
+        def free_fields():
+            world_size = world_reference.n_axis * world_reference.m_axis
+            return world_size == len(world_reference.organisms_list)
+
+        if not free_fields():
+            return randrange(world_reference.n_axis) + 1, randrange(world_reference.m_axis) + 1
 
     def set_position(self, position):
         if position:

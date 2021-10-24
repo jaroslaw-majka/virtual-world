@@ -98,8 +98,6 @@ class World:
                          Tortoise(self, self.turn_since_start),
                          Antelope(self, self.turn_since_start)]
         for idx in range(len(organism_list)):
-            # TODO When creating new organism. Organisms of same type can fight with each other.
-            #  This should not be the case.
             self.encounter_check(organism_list[idx])
 
     def encounter_check(self, organism) -> object:
