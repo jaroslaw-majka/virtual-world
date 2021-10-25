@@ -1,5 +1,6 @@
 from typing import Tuple
 from random import randrange
+from random import choice
 
 
 class Organism:
@@ -23,11 +24,20 @@ class Organism:
             self.position = new_position
 
     def starting_position(self, world_reference: object) -> Tuple:
-        def free_fields():
+        def free_fields_available() -> bool:
             world_size = world_reference.n_axis * world_reference.m_axis
-            return world_size == len(world_reference.organisms_list)
+            return world_size != len(world_reference.organisms_list)
 
-        if not free_fields():
+        def list_of_free_fields() -> list:
+            return [(n_position + 1, m_position + 1)
+                    for n_position in range(world_reference.n_axis)
+                    for m_position in range(world_reference.m_axis)
+                    if (n_position + 1, m_position + 1) not in
+                    [organism.position for organism in world_reference.organisms_list]]
+
+        if free_fields_available():
+            return choice(list_of_free_fields())
+        else:
             return randrange(world_reference.n_axis) + 1, randrange(world_reference.m_axis) + 1
 
     def set_position(self, position):
