@@ -10,16 +10,15 @@ class Organism:
         self.position = self.set_position(position)
 
     def action(self) -> None:
-        """
-        Default Organism movement during the turn
-        """
+        """Default Organism movement during the turn"""
+        # TODO 1. Make it propose a new position (checked for map sanity already)
+        # TODO 2. Check if the proposed field is occupied
+        # TODO 3. If occupied trigger collision method
+        # TODO 4. If not occupied make a move.
         self.move_in_desired_direction(self.world_reference)
 
     def movement_sanity_check(self, new_position: Tuple, world_reference: object) -> None:
-        """
-        Checks if Char is not at the edge of the map and can move in the desired direction.
-        :return: bool value
-        """
+        """Checks if Char is not at the edge of the map and can move in the desired direction."""
         if new_position[0] <= 0 \
                 or new_position[1] <= 0 \
                 or new_position[0] > world_reference.n_axis \
