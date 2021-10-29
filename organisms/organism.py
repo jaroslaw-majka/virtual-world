@@ -9,6 +9,12 @@ class Organism:
         self.creation_time = creation_time
         self.position = self.set_position(position)
 
+    def action(self) -> None:
+        """
+        Default Organism movement during the turn
+        """
+        self.move_in_desired_direction(self.world_reference)
+
     def movement_sanity_check(self, new_position: Tuple, world_reference: object) -> None:
         """
         Checks if Char is not at the edge of the map and can move in the desired direction.
@@ -45,3 +51,22 @@ class Organism:
             return position
         else:
             return self.starting_position(self.world_reference)
+
+    def move_in_desired_direction(self, world_reference: object, direction=None) -> None:
+        """
+        :param world_reference: world reference object for world dimensions check
+        :param direction: str value of the direction
+        :return: updated position
+        """
+        if not direction:
+            direction = choice('news')
+
+        if direction == 'n':
+            new_position = (self.position[0] + 1, self.position[1])
+        elif direction == 's':
+            new_position = (self.position[0] - 1, self.position[1])
+        elif direction == 'e':
+            new_position = (self.position[0], self.position[1] + 1)
+        else:
+            new_position = (self.position[0], self.position[1] - 1)
+        self.movement_sanity_check(new_position, world_reference)
