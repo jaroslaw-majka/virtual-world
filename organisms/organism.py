@@ -15,8 +15,9 @@ class Organism:
         # TODO 2. Check if the proposed field is occupied
         # TODO 3. If occupied trigger collision method
         # TODO 4. If not occupied make a move.
-        self.proposed_position(self.world_reference)
+        self.position = self.proposed_position(self.world_reference)
 
+    # TODO Use decorator for position setter and getter
     def starting_position(self, world_reference: object) -> Tuple:
         def free_fields_available() -> bool:
             world_size = world_reference.n_axis * world_reference.m_axis
@@ -40,32 +41,33 @@ class Organism:
         else:
             return self.starting_position(self.world_reference)
 
-    def proposed_position(self, world_reference: object, direction=None) -> None:
-        """
-        :param world_reference: world reference object for world dimensions check
-        :param direction: str value of the direction
-        :return: updated position
-        """
-        if not direction:
-            direction = choice('news')
+    def proposed_position(self, world_reference: object, direction=None) -> Tuple:
+        def map_range_check(proposed_position):
+            if not proposed_position:
+                return False
+            elif proposed_position[0] <= 0 \
+                    or proposed_position[1] <= 0 \
+                    or proposed_position[0] > world_reference.n_axis \
+                    or proposed_position[1] > world_reference.m_axis:
+                return False
+            else:
+                return True
 
-        if direction == 'n':
-            new_position = (self.position[0] + 1, self.position[1])
-        elif direction == 's':
-            new_position = (self.position[0] - 1, self.position[1])
-        elif direction == 'e':
-            new_position = (self.position[0], self.position[1] + 1)
-        else:
-            new_position = (self.position[0], self.position[1] - 1)
-        self.movement_sanity_check(new_position, world_reference)
+        def propose_position(move_direction):
+            if not move_direction:
+                move_direction = choice('news')
 
-    def movement_sanity_check(self, new_position: Tuple, world_reference: object) -> None:
-        """Checks if Char is not at the edge of the map and can move in the desired direction."""
-        if new_position[0] <= 0 \
-                or new_position[1] <= 0 \
-                or new_position[0] > world_reference.n_axis \
-                or new_position[1] > world_reference.m_axis:
-            print(f'{self} tried to make an invalid move. Position remains unchanged')
-        else:
-            print(f'{self} moved to {new_position}')
-            self.position = new_position
+            if move_direction == 'n':
+                new_position = (self.position[0] + 1, self.position[1])
+            elif move_direction == 's':
+                new_position = (self.position[0] - 1, self.position[1])
+            elif move_direction == 'e':
+                new_position = (self.position[0], self.position[1] + 1)
+            else:
+                new_position = (self.position[0], self.position[1] - 1)
+            return new_position
+
+        possible_new_position = None
+        while not map_range_check(possible_new_position):
+            possible_new_position = propose_position(direction)
+        return possible_new_position

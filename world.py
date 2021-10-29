@@ -137,6 +137,7 @@ class World:
         print(final_list)
         return final_list
 
+    # TODO Below code reformatted for testing purposes
     def make_a_move(self) -> None:
         """
         Applies logic for movement acction.
@@ -144,100 +145,111 @@ class World:
         """
         ordered_list = self.movement_queue()
         for moving_organism in ordered_list:
-            pre_move_position = moving_organism.position
+            pre_position = moving_organism.position
             moving_organism.action()
-            self.attack_occupant(moving_organism, pre_move_position)
+            print(f'{type(moving_organism)} moved from {pre_position} to {moving_organism.position}')
 
-    def attack_occupant(self, attacker: object, pre_move_position: tuple) -> None:
-        """
-        Checks if field was taken and if needed triggers collision method.
-        :param pre_move_position: Moving organism position before the move was made
-        :param attacker: instance of an object that moved onto the field.
-        """
-        def check_organism_type() -> None:
-            """
-            Checks organism type and triggers attack or multiplication
-            """
-            positional_list.remove(attacker)
-            defender = positional_list[0]
-            if type(attacker) == type(defender):
-                trigger_multiplication(attacker, defender)
-            else:
-                trigger_attack(defender)
+    # def make_a_move(self) -> None:
+    #     """
+    #     Applies logic for movement acction.
+    #     :return: organism object with updated position
+    #     """
+    #     ordered_list = self.movement_queue()
+    #     for moving_organism in ordered_list:
+    #         pre_move_position = moving_organism.position
+    #         moving_organism.action()
+    #         self.attack_occupant(moving_organism, pre_move_position)
 
-        def trigger_attack(defender) -> None:
-            """
-            Triggers organisms battle
-            """
-            loser = attacker.collision(defender)
-            World.organisms_list.remove(loser)
-
-        def trigger_multiplication(organism_1, organism_2) -> object:
-            """
-            Triggers organisms multiplication
-            """
-            organism_1.position = pre_move_position
-            free_fields = check_area(organism_1, organism_2)
-            print(free_fields)
-            if free_fields:
-                new_organism = organism_1.multiplication(free_fields, self, self.turn_since_start)
-                # TODO Reformat below messy code
-                print(f'Utworzono nowy organizm: {new_organism}\n'
-                      f'Jego pozycja to: {new_organism.position}\n'
-                      f'Jego Tura utowrzenia to: {new_organism.creation_time}')
-                World.organisms_list.append(new_organism)
-                print(f'Aktualna lista organizmów to: {World.organisms_list}')
-            else:
-                print('Nie ma miejsca na nowy organizm.')
-
-        def check_area(organism_1: object, organism_2: object) -> list:
-            def list_of_all_fields_around(position_1: tuple, position_2: tuple) -> list:
-                """
-                Creates a list of all fields around 2 objects
-                """
-                list_of_all_fields = []
-                for organism in [position_1, position_2]:
-                    list_of_all_fields += [(organism[0] + 1, organism[1]),
-                                           (organism[0] - 1, organism[1]),
-                                           (organism[0], organism[1] + 1),
-                                           (organism[0], organism[1] - 1)]
-                return list_of_all_fields
-
-            def map_sanity_check(list_for_sanity_checking: list) -> list:
-                """
-                Checks if provided list does not contain fields that are out of the map range.
-                :param list_for_sanity_checking:
-                """
-                for spot in list_for_sanity_checking:
-                    if spot[0] <= 0 \
-                            or spot[1] <= 0 \
-                            or spot[0] > self.n_axis \
-                            or spot[1] > self.m_axis:
-                        list_for_sanity_checking.remove(spot)
-                return list(set(list_for_sanity_checking))
-
-            def create_final_list(list_for_empty_space_checking: list) -> list:
-                """
-                Creates a list of empty spaces for a new organism to be created.
-                :param list_for_empty_space_checking:
-                """
-                def check_for_empty_field(position: tuple) -> bool:
-                    """Checks if field is empty"""
-                    for idx in range(len(World.organisms_list)):
-                        if position == World.organisms_list[idx].position:
-                            return True
-
-                final_list = []
-                for field in list_for_empty_space_checking:
-                    if not check_for_empty_field(field):
-                        final_list.append(field)
-                return final_list
-
-            return create_final_list(
-                map_sanity_check(list_of_all_fields_around(organism_1.position,
-                                                           organism_2.position)))
-
-        positional_list = [organism for organism in World.organisms_list if
-                           organism.position == attacker.position]
-        if len(positional_list) > 1:
-            check_organism_type()
+    # def attack_occupant(self, attacker: object, pre_move_position: tuple) -> None:
+    #     """
+    #     Checks if field was taken and if needed triggers collision method.
+    #     :param pre_move_position: Moving organism position before the move was made
+    #     :param attacker: instance of an object that moved onto the field.
+    #     """
+    #     def check_organism_type() -> None:
+    #         """
+    #         Checks organism type and triggers attack or multiplication
+    #         """
+    #         positional_list.remove(attacker)
+    #         defender = positional_list[0]
+    #         if type(attacker) == type(defender):
+    #             trigger_multiplication(attacker, defender)
+    #         else:
+    #             trigger_attack(defender)
+    #
+    #     def trigger_attack(defender) -> None:
+    #         """
+    #         Triggers organisms battle
+    #         """
+    #         loser = attacker.collision(defender)
+    #         World.organisms_list.remove(loser)
+    #
+    #     def trigger_multiplication(organism_1, organism_2) -> object:
+    #         """
+    #         Triggers organisms multiplication
+    #         """
+    #         organism_1.position = pre_move_position
+    #         free_fields = check_area(organism_1, organism_2)
+    #         print(free_fields)
+    #         if free_fields:
+    #             new_organism = organism_1.multiplication(free_fields, self, self.turn_since_start)
+    #             # TODO Reformat below messy code
+    #             print(f'Utworzono nowy organizm: {new_organism}\n'
+    #                   f'Jego pozycja to: {new_organism.position}\n'
+    #                   f'Jego Tura utowrzenia to: {new_organism.creation_time}')
+    #             World.organisms_list.append(new_organism)
+    #             print(f'Aktualna lista organizmów to: {World.organisms_list}')
+    #         else:
+    #             print('Nie ma miejsca na nowy organizm.')
+    #
+    #     def check_area(organism_1: object, organism_2: object) -> list:
+    #         def list_of_all_fields_around(position_1: tuple, position_2: tuple) -> list:
+    #             """
+    #             Creates a list of all fields around 2 objects
+    #             """
+    #             list_of_all_fields = []
+    #             for organism in [position_1, position_2]:
+    #                 list_of_all_fields += [(organism[0] + 1, organism[1]),
+    #                                        (organism[0] - 1, organism[1]),
+    #                                        (organism[0], organism[1] + 1),
+    #                                        (organism[0], organism[1] - 1)]
+    #             return list_of_all_fields
+    #
+    #         def map_sanity_check(list_for_sanity_checking: list) -> list:
+    #             """
+    #             Checks if provided list does not contain fields that are out of the map range.
+    #             :param list_for_sanity_checking:
+    #             """
+    #             for spot in list_for_sanity_checking:
+    #                 if spot[0] <= 0 \
+    #                         or spot[1] <= 0 \
+    #                         or spot[0] > self.n_axis \
+    #                         or spot[1] > self.m_axis:
+    #                     list_for_sanity_checking.remove(spot)
+    #             return list(set(list_for_sanity_checking))
+    #
+    #         def create_final_list(list_for_empty_space_checking: list) -> list:
+    #             """
+    #             Creates a list of empty spaces for a new organism to be created.
+    #             :param list_for_empty_space_checking:
+    #             """
+    #             def check_for_empty_field(position: tuple) -> bool:
+    #                 """Checks if field is empty"""
+    #                 for idx in range(len(World.organisms_list)):
+    #                     if position == World.organisms_list[idx].position:
+    #                         return True
+    #
+    #             final_list = []
+    #             for field in list_for_empty_space_checking:
+    #                 if not check_for_empty_field(field):
+    #                     final_list.append(field)
+    #             return final_list
+    #
+    #         return create_final_list(
+    #             map_sanity_check(list_of_all_fields_around(organism_1.position,
+    #                                                        organism_2.position)))
+    #
+    #     positional_list = [organism for organism in World.organisms_list if
+    #                        organism.position == attacker.position]
+    #     if len(positional_list) > 1:
+    #         check_organism_type()
