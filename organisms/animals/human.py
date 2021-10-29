@@ -10,15 +10,12 @@ class Human(Animal):
         self.creation_time = creation_time
 
     def action(self):
-        action = self.movement_menu()
-        if action in 'news':
-            self.proposed_position(self.world_reference, action)
+        move_direction = self.movement_menu()
+        while not self.proposed_position(self.world_reference, move_direction):
+            move_direction = self.movement_menu()
+        self.position = move_direction
 
     def movement_menu(self) -> str:
-        """
-        Prints action menu for user to decide
-        :return: str
-        """
         print("1. Wykonaj ruch na sąsiednie pole")
         print("2. Użyj umiejętności")
         print("3. Zakończ grę")

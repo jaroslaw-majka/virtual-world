@@ -68,6 +68,9 @@ class Organism:
             return new_position
 
         possible_new_position = None
-        while not map_range_check(possible_new_position):
-            possible_new_position = propose_position(direction)
+        if direction:
+            return map_range_check(propose_position(direction))
+        else:
+            while not map_range_check(possible_new_position):
+                possible_new_position = propose_position(direction)
         return possible_new_position
