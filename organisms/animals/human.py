@@ -12,7 +12,7 @@ class Human(Animal):
     def action(self):
         action = self.movement_menu()
         if action in 'news':
-            self.move_in_desired_direction(self.world_reference, action)
+            self.proposed_position(self.world_reference, action)
 
     def movement_menu(self) -> str:
         """

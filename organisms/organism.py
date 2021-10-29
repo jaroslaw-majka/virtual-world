@@ -15,18 +15,7 @@ class Organism:
         # TODO 2. Check if the proposed field is occupied
         # TODO 3. If occupied trigger collision method
         # TODO 4. If not occupied make a move.
-        self.move_in_desired_direction(self.world_reference)
-
-    def movement_sanity_check(self, new_position: Tuple, world_reference: object) -> None:
-        """Checks if Char is not at the edge of the map and can move in the desired direction."""
-        if new_position[0] <= 0 \
-                or new_position[1] <= 0 \
-                or new_position[0] > world_reference.n_axis \
-                or new_position[1] > world_reference.m_axis:
-            print(f'{self} tried to make an invalid move. Position remains unchanged')
-        else:
-            print(f'{self} moved to {new_position}')
-            self.position = new_position
+        self.proposed_position(self.world_reference)
 
     def starting_position(self, world_reference: object) -> Tuple:
         def free_fields_available() -> bool:
@@ -51,7 +40,7 @@ class Organism:
         else:
             return self.starting_position(self.world_reference)
 
-    def move_in_desired_direction(self, world_reference: object, direction=None) -> None:
+    def proposed_position(self, world_reference: object, direction=None) -> None:
         """
         :param world_reference: world reference object for world dimensions check
         :param direction: str value of the direction
@@ -69,3 +58,14 @@ class Organism:
         else:
             new_position = (self.position[0], self.position[1] - 1)
         self.movement_sanity_check(new_position, world_reference)
+
+    def movement_sanity_check(self, new_position: Tuple, world_reference: object) -> None:
+        """Checks if Char is not at the edge of the map and can move in the desired direction."""
+        if new_position[0] <= 0 \
+                or new_position[1] <= 0 \
+                or new_position[0] > world_reference.n_axis \
+                or new_position[1] > world_reference.m_axis:
+            print(f'{self} tried to make an invalid move. Position remains unchanged')
+        else:
+            print(f'{self} moved to {new_position}')
+            self.position = new_position
