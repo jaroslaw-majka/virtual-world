@@ -145,9 +145,7 @@ class World:
         """
         ordered_list = self.movement_queue()
         for moving_organism in ordered_list:
-            pre_position = moving_organism.position
             moving_organism.action()
-            print(f'{type(moving_organism)} moved from {pre_position} to {moving_organism.position}')
 
     # def make_a_move(self) -> None:
     #     """
