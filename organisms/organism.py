@@ -11,16 +11,13 @@ class Organism:
 
     def action(self) -> None:
         """Default Organism movement during the turn"""
-        # TODO 1. Make it propose a new position (checked for map sanity already)
-        # TODO 2. Check if the proposed field is occupied
         proposed_position = self.proposed_position(self.world_reference)
         if self.field_free(self.world_reference, proposed_position):
             print(f'{self} moved from {self.position} to {proposed_position}')
             self.position = proposed_position
         else:
             print('Position occupied.')
-        # TODO 3. If occupied trigger collision method
-        # TODO 4. If not occupied make a move.
+            # TODO 3. If occupied trigger collision method
 
     # TODO Use decorator for position setter and getter
     def starting_position(self, world_reference: object) -> Tuple:
