@@ -10,10 +10,11 @@ class Human(Animal):
         self.creation_time = creation_time
 
     def action(self):
-        move_direction = self.movement_menu()
-        while not self.proposed_position(self.world_reference, move_direction):
+        validated_move = None
+        while not validated_move:
             move_direction = self.movement_menu()
-        self.position = move_direction
+            validated_move = self.proposed_position(self.world_reference, move_direction)
+        self.position = validated_move
 
     def movement_menu(self) -> str:
         print("1. Wykonaj ruch na sąsiednie pole")

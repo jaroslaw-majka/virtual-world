@@ -42,7 +42,7 @@ class Organism:
             return self.starting_position(self.world_reference)
 
     def proposed_position(self, world_reference: object, direction=None) -> Tuple:
-        def map_range_check(proposed_position):
+        def map_range_check(proposed_position) -> Tuple:
             if not proposed_position:
                 return False
             elif proposed_position[0] <= 0 \
@@ -51,9 +51,9 @@ class Organism:
                     or proposed_position[1] > world_reference.m_axis:
                 return False
             else:
-                return True
+                return proposed_position
 
-        def propose_position(move_direction):
+        def propose_position(move_direction) -> Tuple:
             if not move_direction:
                 move_direction = choice('news')
 
